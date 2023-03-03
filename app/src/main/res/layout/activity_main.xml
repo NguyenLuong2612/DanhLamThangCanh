@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_One"
+    android:background="@drawable/bg_world">
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#A4696969"
+        android:ems="7"
+        android:fontFamily="cursive"
+        android:gravity="center_horizontal"
+        android:text="Danh lam thắng cảnh"
+        android:textAlignment="center"
+        android:textColor="@color/purple_700"
+        android:textSize="40dp" />
+
+    <Button
+        android:id="@+id/btn_vn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#56000000"
+        android:fontFamily="cursive"
+        android:padding="20dp"
+        android:text="Việt Nam"
+        android:textColor="@color/purple_200"
+        android:onClick="btn_vn_onClick"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btn_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#56000000"
+        android:fontFamily="cursive"
+        android:padding="20dp"
+        android:text="Thế Giới"
+        android:textColor="@color/purple_200"
+        android:textSize="20dp" />
+</RelativeLayout>
