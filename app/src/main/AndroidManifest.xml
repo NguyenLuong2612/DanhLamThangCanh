@@ -12,10 +12,13 @@
         android:theme="@style/Theme.DanhLamThangCanh"
         tools:targetApi="31">
         <activity
+            android:name=".Activity_One"
+            android:exported="false" />
+        <activity
             android:name=".Activity_Two"
             android:exported="false" />
         <activity
-            android:name=".Activity_One"
+            android:name=".Background_delay"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
