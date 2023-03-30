@@ -15,7 +15,7 @@ public class Background_delay extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(getApplicationContext(), Activity_One.class);
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(i);
                 finish();
             }
