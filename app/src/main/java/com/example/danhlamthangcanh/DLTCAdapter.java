@@ -51,19 +51,17 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
         //Input đầu vào là 1 danh sách
         DanhLamThangCanh item = listDLTC.get(position);
         //holder truy xuất đến những thành phần liên kết trong DLTCVH của Bước 1 để hiển thị dữ liệu ra.
-        if (item.getRegions() == "Miền Bắc")
-        {
             holder.imgFlag.setImageResource(item.getImgflag());
             holder.txName.setText(item.getName());
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
             holder.txDiscrition.setText(item.getDescription());
+            //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onItemListener(item);
                 }
             });
-        }
     }
     //Lớp hiển thị số lượng dòng dữ liệu cần hiển thị
     @Override
@@ -79,6 +77,9 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
         this.listDLTC = listDLTC;
     }
 
+    //Khai báo 1 interface nghe event click bên trong tự định nghĩa 1 hàm truyền
+    // vào đối số là 1 danhlamthangcanh. Sau đó khai báo interface này (line 73) và trong
+    // contructor (line 74)
     interface Listener{
         void onItemListener(DanhLamThangCanh danhLamThangCanh);
     }
