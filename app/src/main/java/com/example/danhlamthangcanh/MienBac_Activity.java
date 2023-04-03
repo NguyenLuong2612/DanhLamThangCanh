@@ -41,7 +41,7 @@ public class MienBac_Activity extends AppCompatActivity implements DLTCAdapter.L
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
-        // listDLTC =
+         listDLTC = new ArrayList<>();
 
         // Lưu listDLTC đã được gắn dữ liệu và MienBac_Activity
          dltcAdapter = new DLTCAdapter(MienBac_Activity.this, listDLTC);

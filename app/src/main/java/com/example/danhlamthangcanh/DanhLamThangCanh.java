@@ -2,15 +2,15 @@ package com.example.danhlamthangcanh;
 
 public class DanhLamThangCanh {
     int id;
-    String name;
-    String famousname;
-    int imgflag;
-    int imgcontent;
-    String description;
-    String city;
-    String content;
-    String regions;
-    String video;
+    String name; //Tên
+    String famousname;//Mệnh danh
+    int imgflag;//mini img (chưa cần add)
+    int imgcontent; //Img trong chi tiết từng dltc (chưa cần add)
+    String description;//Đoạn mô tả
+    String city;// Thành phố có dlct này
+    String content;// Đoạn văn rv dltc
+    String regions;// Vùng miền
+    String video;// Mã video (chưa cần add)
 
 
     public DanhLamThangCanh(int id, String name, int imgflag, int imgcontent, String description, String city, String content, String video, String famousname, String regions) {
@@ -24,6 +24,18 @@ public class DanhLamThangCanh {
         this.video = video;
         this.regions = regions;
         this.famousname = famousname;
+    }
+
+    public DanhLamThangCanh(String name, int imgflag, String city, String regions) {
+        this.name = name;
+        this.imgflag = imgflag;
+        this.city = city;
+        this.regions = regions;
+    }
+
+    public DanhLamThangCanh(String name, String city) {
+        this.name = name;
+        this.city = city;
     }
 
     public int getId() {

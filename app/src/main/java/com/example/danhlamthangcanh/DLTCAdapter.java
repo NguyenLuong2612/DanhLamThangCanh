@@ -51,10 +51,10 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
         //Input đầu vào là 1 danh sách
         DanhLamThangCanh item = listDLTC.get(position);
         //holder truy xuất đến những thành phần liên kết trong DLTCVH của Bước 1 để hiển thị dữ liệu ra.
-            holder.imgFlag.setImageResource(item.getImgflag());
+            //holder.imgFlag.setImageResource(item.getImgflag());
             holder.txName.setText(item.getName());
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
-            holder.txDiscrition.setText(item.getDescription());
+            //holder.txDiscrition.setText(item.getDescription());
             //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
