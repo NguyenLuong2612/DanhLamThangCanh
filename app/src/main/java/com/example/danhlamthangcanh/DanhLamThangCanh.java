@@ -26,6 +26,12 @@ public class DanhLamThangCanh {
         this.famousname = famousname;
     }
 
+    public DanhLamThangCanh(String name, String description, String city) {
+        this.name = name;
+        this.description = description;
+        this.city = city;
+    }
+
     public DanhLamThangCanh(String name, int imgflag, String city, String regions) {
         this.name = name;
         this.imgflag = imgflag;

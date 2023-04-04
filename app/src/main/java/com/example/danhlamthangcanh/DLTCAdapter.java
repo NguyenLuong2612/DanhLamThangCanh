@@ -23,14 +23,14 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
         //Trong ViewHolder này sẽ chứa tất cả các view ta muốn liên kết (cụ thể là những view con
         // của mỗi item)
         CircleImageView imgFlag;
-        TextView txName, txCity, txDiscrition;
+        TextView txName, txCity, txDescrition;
         //Trong lớp con này sẽ thực hiện liên kết giữa controler vs view
         public DLTCVH(@NonNull View itemView) {
             super(itemView);
             imgFlag = itemView.findViewById(R.id.imgFlag);
             txName = itemView.findViewById(R.id.txName);
             txCity = itemView.findViewById(R.id.txCity);
-            txDiscrition = itemView.findViewById(R.id.txDiscription);
+            txDescrition = itemView.findViewById(R.id.txDescription);
         }
     }
 
@@ -54,6 +54,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
             //holder.imgFlag.setImageResource(item.getImgflag());
             holder.txName.setText(item.getName());
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
+            holder.txDescrition.setText(item.getDescription());
             //holder.txDiscrition.setText(item.getDescription());
             //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {

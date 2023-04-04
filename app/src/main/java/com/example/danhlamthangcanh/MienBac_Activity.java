@@ -63,8 +63,9 @@ public class MienBac_Activity extends AppCompatActivity implements DLTCAdapter.L
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String city = document.get("city").toString();
                             String name = document.get("name").toString();
+                            String description = document.get("description").toString();
                             // ----------------------Đang làm-------------------------
-                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(name, city);
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(name, city, description);
                             listDLTC.add(DLTC1);
                         }
                         dltcAdapter.notifyDataSetChanged();
