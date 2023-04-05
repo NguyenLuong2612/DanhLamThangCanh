@@ -3,44 +3,36 @@ package com.example.danhlamthangcanh;
 public class DanhLamThangCanh {
     int id;
     String name; //Tên
-    String famousname;//Mệnh danh
+    String contentname;//Mệnh danh
     int imgflag;//mini img (chưa cần add)
-    int imgcontent; //Img trong chi tiết từng dltc (chưa cần add)
+    int imgcontent1; //Img trong chi tiết từng dltc (chưa cần add)
+    int imgcontent2;
     String description;//Đoạn mô tả
     String city;// Thành phố có dlct này
-    String content;// Đoạn văn rv dltc
+    String content1;// Đoạn văn rv dltc
+    String content2;
     String regions;// Vùng miền
     String video;// Mã video (chưa cần add)
 
 
-    public DanhLamThangCanh(int id, String name, int imgflag, int imgcontent, String description, String city, String content, String video, String famousname, String regions) {
+    public DanhLamThangCanh(int id, String name, String contentname, int imgflag, int imgcontent1, int imgcontent2, String description, String city, String content1, String content2, String regions, String video) {
         this.id = id;
         this.name = name;
+        this.contentname = contentname;
         this.imgflag = imgflag;
-        this.imgcontent = imgcontent;
+        this.imgcontent1 = imgcontent1;
+        this.imgcontent2 = imgcontent2;
         this.description = description;
         this.city = city;
-        this.content = content;
-        this.video = video;
+        this.content1 = content1;
+        this.content2 = content2;
         this.regions = regions;
-        this.famousname = famousname;
+        this.video = video;
     }
 
     public DanhLamThangCanh(String name, String description, String city) {
         this.name = name;
         this.description = description;
-        this.city = city;
-    }
-
-    public DanhLamThangCanh(String name, int imgflag, String city, String regions) {
-        this.name = name;
-        this.imgflag = imgflag;
-        this.city = city;
-        this.regions = regions;
-    }
-
-    public DanhLamThangCanh(String name, String city) {
-        this.name = name;
         this.city = city;
     }
 
@@ -60,6 +52,14 @@ public class DanhLamThangCanh {
         this.name = name;
     }
 
+    public String getContentname() {
+        return contentname;
+    }
+
+    public void setContentname(String contentname) {
+        this.contentname = contentname;
+    }
+
     public int getImgflag() {
         return imgflag;
     }
@@ -68,12 +68,20 @@ public class DanhLamThangCanh {
         this.imgflag = imgflag;
     }
 
-    public int getImgcontent() {
-        return imgcontent;
+    public int getImgcontent1() {
+        return imgcontent1;
     }
 
-    public void setImgcontent(int imgcontent) {
-        this.imgcontent = imgcontent;
+    public void setImgcontent1(int imgcontent1) {
+        this.imgcontent1 = imgcontent1;
+    }
+
+    public int getImgcontent2() {
+        return imgcontent2;
+    }
+
+    public void setImgcontent2(int imgcontent2) {
+        this.imgcontent2 = imgcontent2;
     }
 
     public String getDescription() {
@@ -92,28 +100,20 @@ public class DanhLamThangCanh {
         this.city = city;
     }
 
-    public String getContent() {
-        return content;
+    public String getContent1() {
+        return content1;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent1(String content1) {
+        this.content1 = content1;
     }
 
-    public String getVideo() {
-        return video;
+    public String getContent2() {
+        return content2;
     }
 
-    public void setVideo(String video) {
-        this.video = video;
-    }
-
-    public String getFamousname() {
-        return famousname;
-    }
-
-    public void setFamousname(String famousname) {
-        this.famousname = famousname;
+    public void setContent2(String content2) {
+        this.content2 = content2;
     }
 
     public String getRegions() {
@@ -122,5 +122,13 @@ public class DanhLamThangCanh {
 
     public void setRegions(String regions) {
         this.regions = regions;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }
