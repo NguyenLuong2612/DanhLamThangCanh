@@ -23,5 +23,19 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btn_mientrung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MienTrung_Activity.class);
+                startActivity(i);
+            }
+        });
+        btn_miennam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MienNam_Activity.class);
+                startActivity(i);
+            }
+        });
     }
 }

@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
+public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
     SearchView btn_search;
@@ -42,18 +42,18 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
         listDLTC = new ArrayList<>();
 
         // Lưu listDLTC đã được gắn dữ liệu và MienBac_Activity
-        dltcAdapter = new DLTCAdapter(MienTrung_Activity.this, listDLTC);
+        dltcAdapter = new DLTCAdapter(MienNam_Activity.this, listDLTC);
 
 
         // Tạo khung danh sách để hiển thị dữ liệu trong RecyclerView = linearlayout
-        rvDLTC.setLayoutManager(new LinearLayoutManager(MienTrung_Activity.this, LinearLayoutManager.VERTICAL, false));
+        rvDLTC.setLayoutManager(new LinearLayoutManager(MienNam_Activity.this, LinearLayoutManager.VERTICAL, false));
         // Tạo đường kẻ cách ngăn mỗi item
-        rvDLTC.addItemDecoration(new DividerItemDecoration(MienTrung_Activity.this, LinearLayout.VERTICAL));
+        rvDLTC.addItemDecoration(new DividerItemDecoration(MienNam_Activity.this, LinearLayout.VERTICAL));
         // Gán toàn bộ dữ liệu vào
         rvDLTC.setAdapter(dltcAdapter);
 
         //Lấy toàn bộ dữ liệu từ collection MienBac
-        db.collection("MienTrung")
+        db.collection("MienNam")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -72,7 +72,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MienTrung_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MienNam_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

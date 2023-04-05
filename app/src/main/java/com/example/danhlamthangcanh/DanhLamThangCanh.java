@@ -30,7 +30,7 @@ public class DanhLamThangCanh {
         this.video = video;
     }
 
-    public DanhLamThangCanh(String name, String description, String city) {
+    public DanhLamThangCanh(String name, String city, String description) {
         this.name = name;
         this.description = description;
         this.city = city;
