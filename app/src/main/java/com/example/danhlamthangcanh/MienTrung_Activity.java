@@ -14,12 +14,14 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+// class kế thừa từ interface dùng implements
 public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
@@ -32,7 +34,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mienbac);
+        setContentView(R.layout.activity_mien_trung);
 
         rvDLTC = findViewById(R.id.rvDLTC);
 

@@ -53,6 +53,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btn_mientrung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MienTrung_Activity.class);
+                startActivity(i);
+            }
+        });
     }
     void loadFragment (Fragment fmNew){
         FragmentTransaction fmTran = getSupportFragmentManager().beginTransaction();

@@ -55,7 +55,7 @@ public class MienBac_Activity extends AppCompatActivity implements DLTCAdapter.L
          rvDLTC.setAdapter(dltcAdapter);
 
         //Lấy toàn bộ dữ liệu từ collection MienBac
-        db.collection("MienBac")
+        db.collection("MienTrung")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

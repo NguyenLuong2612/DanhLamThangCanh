@@ -55,7 +55,6 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
             holder.txName.setText(item.getName());
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
             holder.txDescrition.setText(item.getDescription());
-            //holder.txDiscrition.setText(item.getDescription());
             //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
