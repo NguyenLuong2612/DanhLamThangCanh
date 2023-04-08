@@ -53,7 +53,7 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
         rvDLTC.setAdapter(dltcAdapter);
 
         //Lấy toàn bộ dữ liệu từ collection MienBac
-        db.collection("MienNam")
+        db.collection("DanhLamThangCanh").whereEqualTo("regions", "miennam")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
