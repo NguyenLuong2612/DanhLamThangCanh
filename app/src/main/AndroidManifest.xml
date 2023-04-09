@@ -20,9 +20,6 @@
             android:name=".MienNam_Activity"
             android:exported="false" />
         <activity
-            android:name=".MienNam_Activity"
-            android:exported="false" />
-        <activity
             android:name=".ChiTietDLTC"
             android:exported="false" />
         <activity

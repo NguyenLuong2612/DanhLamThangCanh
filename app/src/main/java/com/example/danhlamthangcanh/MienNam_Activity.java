@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -60,10 +61,18 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String city = document.get("city").toString();
+                            String idDLTC = document.get("id").toString();
                             String name = document.get("name").toString();
+                            String content1 = document.get("content1").toString();
+                            String content2 = document.get("content2").toString();
+                            String contentname = document.get("contentname").toString();
+                            String imgcontent1 = document.get("imgcontent1").toString();
+                            String imgcontent2 = document.get("imgcontent2").toString();
+                            String regions = document.get("regions").toString();
                             String description = document.get("description").toString();
+                            int id = Integer.parseInt(idDLTC);
                             // ----------------------Đang làm-------------------------
-                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(name, city, description);
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgcontent1, imgcontent2, description, city, content1, content2, regions );
                             listDLTC.add(DLTC1);
                         }
                         dltcAdapter.notifyDataSetChanged();
@@ -82,5 +91,14 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
     public void onItemListener(DanhLamThangCanh danhLamThangCanh) {
         // Hàm này dùng để truyền dữ liệu của 1 danhlamThangCanh sang 1 activity mới
         // bằng Bundle và Intent với dữ liệu truyện theo dạng: danhLamThangCanh.name,...
+        Intent i = new Intent(MienNam_Activity.this,ChiTietDLTC.class);
+        Bundle b = new Bundle();
+        b.putString("contentname", danhLamThangCanh.getContentname().toString());
+        b.putString("content2", danhLamThangCanh.getContent2().toString());
+        b.putString("imgcontent1", danhLamThangCanh.getImgcontent1().toString());
+        b.putString("imgcontent2", danhLamThangCanh.getImgcontent2().toString());
+        b.putString("content1", danhLamThangCanh.getContent1().toString());
+        i.putExtras(b);
+        startActivity(i);
     }
 }

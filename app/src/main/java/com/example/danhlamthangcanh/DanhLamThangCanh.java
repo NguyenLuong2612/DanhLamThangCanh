@@ -4,9 +4,9 @@ public class DanhLamThangCanh {
     int id;
     String name; //Tên
     String contentname;//Mệnh danh
-    int imgflag;//mini img (chưa cần add)
-    int imgcontent1; //Img trong chi tiết từng dltc (chưa cần add)
-    int imgcontent2;
+    String imgflag;//mini img (chưa cần add)
+    String imgcontent1; //Img trong chi tiết từng dltc (chưa cần add)
+    String imgcontent2;
     String description;//Đoạn mô tả
     String city;// Thành phố có dlct này
     String content1;// Đoạn văn rv dltc
@@ -15,11 +15,10 @@ public class DanhLamThangCanh {
     String video;// Mã video (chưa cần add)
 
 
-    public DanhLamThangCanh(int id, String name, String contentname, int imgflag, int imgcontent1, int imgcontent2, String description, String city, String content1, String content2, String regions, String video) {
+    public DanhLamThangCanh(int id, String name, String contentname, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions) {
         this.id = id;
         this.name = name;
         this.contentname = contentname;
-        this.imgflag = imgflag;
         this.imgcontent1 = imgcontent1;
         this.imgcontent2 = imgcontent2;
         this.description = description;
@@ -27,13 +26,6 @@ public class DanhLamThangCanh {
         this.content1 = content1;
         this.content2 = content2;
         this.regions = regions;
-        this.video = video;
-    }
-
-    public DanhLamThangCanh(String name, String city, String description) {
-        this.name = name;
-        this.description = description;
-        this.city = city;
     }
 
     public int getId() {
@@ -60,27 +52,27 @@ public class DanhLamThangCanh {
         this.contentname = contentname;
     }
 
-    public int getImgflag() {
+    public String getImgflag() {
         return imgflag;
     }
 
-    public void setImgflag(int imgflag) {
+    public void setImgflag(String imgflag) {
         this.imgflag = imgflag;
     }
 
-    public int getImgcontent1() {
+    public String getImgcontent1() {
         return imgcontent1;
     }
 
-    public void setImgcontent1(int imgcontent1) {
+    public void setImgcontent1(String imgcontent1) {
         this.imgcontent1 = imgcontent1;
     }
 
-    public int getImgcontent2() {
+    public String getImgcontent2() {
         return imgcontent2;
     }
 
-    public void setImgcontent2(int imgcontent2) {
+    public void setImgcontent2(String imgcontent2) {
         this.imgcontent2 = imgcontent2;
     }
 
