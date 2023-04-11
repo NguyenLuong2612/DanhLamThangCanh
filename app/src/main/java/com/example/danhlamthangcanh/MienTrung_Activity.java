@@ -56,7 +56,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
         rvDLTC.setAdapter(dltcAdapter);
 
         //Lấy toàn bộ dữ liệu từ collection MienBac
-        db.collection("DanhLamThangCanh").whereEqualTo("regions", "mientrung")
+        db.collection("DanhLamThangCanh").whereEqualTo("regions",FirebaseFirestore.getInstance().document("VungMien/Trung"))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
