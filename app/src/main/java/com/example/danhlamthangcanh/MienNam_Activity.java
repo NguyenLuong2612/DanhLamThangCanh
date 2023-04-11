@@ -70,9 +70,10 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
                             String imgcontent2 = document.get("imgcontent2").toString();
                             String regions = document.get("regions").toString();
                             String description = document.get("description").toString();
+                            String imgflag = document.get("imgflag").toString();
                             int id = Integer.parseInt(idDLTC);
                             // ----------------------Đang làm-------------------------
-                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgcontent1, imgcontent2, description, city, content1, content2, regions );
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions );
                             listDLTC.add(DLTC1);
                         }
                         dltcAdapter.notifyDataSetChanged();

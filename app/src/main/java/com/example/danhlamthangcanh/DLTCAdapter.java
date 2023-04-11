@@ -8,6 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,7 +21,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // Bước 2: Muốn DLTCAdapter hoạt động thì phải kế thừa từ 1 lớp Adapter của RecyclerView có dạng:
 //RecyclerView<DLTCAdapter.DLTCVH (lớp kế thừa từ ViewHolder đã tạo ở Bước 1)>
 public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
-
+    StorageReference linkimg;
+    FirebaseStorage db = FirebaseStorage.getInstance();
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DLTCVH kế thừa từ ViewHolder
     //DLTCVH chính là controller cho view item_row
     class DLTCVH extends RecyclerView.ViewHolder{
@@ -51,10 +57,11 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
         //Input đầu vào là 1 danh sách
         DanhLamThangCanh item = listDLTC.get(position);
         //holder truy xuất đến những thành phần liên kết trong DLTCVH của Bước 1 để hiển thị dữ liệu ra.
-            //holder.imgFlag.setImageResource(item.getImgflag());
             holder.txName.setText(item.getName());
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
             holder.txDescrition.setText(item.getDescription());
+            linkimg = db.getReference().child(item.getImgflag());
+        //Glide.with(holder.itemView.getContext()).load(linkimg).into(holder.imgFlag);
             //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -28,6 +28,20 @@ public class DanhLamThangCanh {
         this.regions = regions;
     }
 
+    public DanhLamThangCanh(int id, String name, String contentname, String imgflag, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions) {
+        this.id = id;
+        this.name = name;
+        this.contentname = contentname;
+        this.imgflag = imgflag;
+        this.imgcontent1 = imgcontent1;
+        this.imgcontent2 = imgcontent2;
+        this.description = description;
+        this.city = city;
+        this.content1 = content1;
+        this.content2 = content2;
+        this.regions = regions;
+    }
+
     public int getId() {
         return id;
     }
