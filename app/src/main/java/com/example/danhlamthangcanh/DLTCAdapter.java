@@ -3,6 +3,8 @@ package com.example.danhlamthangcanh;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,9 +22,11 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 // Bước 2: Muốn DLTCAdapter hoạt động thì phải kế thừa từ 1 lớp Adapter của RecyclerView có dạng:
 //RecyclerView<DLTCAdapter.DLTCVH (lớp kế thừa từ ViewHolder đã tạo ở Bước 1)>
-public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
+public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implements Filterable {
     StorageReference linkimg;
     FirebaseStorage db = FirebaseStorage.getInstance();
+
+
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DLTCVH kế thừa từ ViewHolder
     //DLTCVH chính là controller cho view item_row
     class DLTCVH extends RecyclerView.ViewHolder{
@@ -77,12 +81,44 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
 
     //Khởi tạo dữ liệu
     ArrayList<DanhLamThangCanh> listDLTC;
+    ArrayList<DanhLamThangCanh> listDLTC2;
     Listener listener;
     public DLTCAdapter(Listener listener, ArrayList<DanhLamThangCanh> listDLTC) {
         this.listener = listener;
         this.listDLTC = listDLTC;
+        this.listDLTC2 = listDLTC;
     }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if(strSearch.isEmpty()){
+                    listDLTC = listDLTC2;
+                }
+                else {
+                    ArrayList<DanhLamThangCanh> list = new ArrayList<>();
+                    for (DanhLamThangCanh danhLamThangCanh : listDLTC2){
+                        if (danhLamThangCanh.getName().toLowerCase().contains(strSearch.toLowerCase())
+                        ||danhLamThangCanh.getCity().toLowerCase().contains(strSearch.toLowerCase())){
+                            list.add(danhLamThangCanh);
+                        }
+                    }
+                    listDLTC = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = listDLTC;
+                return filterResults;
+            }
 
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                listDLTC = (ArrayList<DanhLamThangCanh>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
     //Khai báo 1 interface nghe event click bên trong tự định nghĩa 1 hàm truyền
     // vào đối số là 1 danhlamthangcanh. Sau đó khai báo interface này (line 73) và trong
     // contructor (line 74)

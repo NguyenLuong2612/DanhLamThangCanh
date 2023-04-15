@@ -38,7 +38,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
         setContentView(R.layout.activity_mien_trung);
 
         rvDLTC = findViewById(R.id.rvDLTC);
-
+        btn_search = findViewById(R.id.btn_search);
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
@@ -87,7 +87,19 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
                         Toast.makeText(MienTrung_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+        btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                dltcAdapter.getFilter().filter(query);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                dltcAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     @Override
