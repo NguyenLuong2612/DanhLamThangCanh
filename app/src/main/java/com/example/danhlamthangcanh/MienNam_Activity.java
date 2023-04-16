@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -20,15 +22,19 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
+    Button btn_sort;
     SearchView btn_search;
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
     //Khởi tạo Adapter
     DLTCAdapter dltcAdapter;
+    Comparator<DanhLamThangCanh> comparator = Comparator.comparing(DanhLamThangCanh::getName);
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
+        btn_sort=findViewById(R.id.btn_sort);
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
@@ -96,6 +103,15 @@ public class MienNam_Activity extends AppCompatActivity implements DLTCAdapter.L
             public boolean onQueryTextChange(String newText) {
                 dltcAdapter.getFilter().filter(newText);
                 return false;
+            }
+        });
+        btn_sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // sắp xếp theo thứ tự tăng dần bản chữ cái
+                Collections.sort(listDLTC, comparator);
+                dltcAdapter = new DLTCAdapter(MienNam_Activity.this, listDLTC);
+                rvDLTC.setAdapter(dltcAdapter);
             }
         });
     }
