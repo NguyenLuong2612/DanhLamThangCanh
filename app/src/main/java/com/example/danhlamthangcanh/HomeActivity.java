@@ -35,28 +35,30 @@ public class HomeActivity extends AppCompatActivity {
         btn_mienbac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MienBac_Activity.class);
+                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                Bundle b = new Bundle();
+                b.putString("VungMien","VungMien/Bac");
+                i.putExtras(b);
                 startActivity(i);
             }
         });
         btn_mientrung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MienTrung_Activity.class);
+                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                Bundle b = new Bundle();
+                b.putString("VungMien","VungMien/Trung");
+                i.putExtras(b);
                 startActivity(i);
             }
         });
         btn_miennam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MienNam_Activity.class);
-                startActivity(i);
-            }
-        });
-        btn_mientrung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MienTrung_Activity.class);
+                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                Bundle b = new Bundle();
+                b.putString("VungMien","VungMien/Nam");
+                i.putExtras(b);
                 startActivity(i);
             }
         });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MienBac_Activity">
+    tools:context=".DanhSachDanLamThangCanh_Activity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:id="@+id/btn_search"
             android:layout_height="match_parent" />
+
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@
         android:layout_below="@+id/frame"
         android:id="@+id/rvDLTC"
         android:layout_height="match_parent" />
+
     <Button
 
         android:layout_width="match_parent"

@@ -14,19 +14,13 @@
         android:theme="@style/Theme.DanhLamThangCanh"
         tools:targetApi="31" >
         <activity
-            android:name=".MienTrung_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".MienNam_Activity"
-            android:exported="false" />
-        <activity
             android:name=".ChiTietDLTC"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MienBac_Activity"
+            android:name=".DanhSachDanLamThangCanh_Activity"
             android:exported="false" />
         <activity
             android:name=".Background_delay"

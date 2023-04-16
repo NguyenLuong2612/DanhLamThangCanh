@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -27,11 +26,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 // class kế thừa từ interface dùng implements
-public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
+public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
-    SearchView btn_search;
     Button btn_sort;
+    SearchView btn_search;
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
     //Khởi tạo Adapter
@@ -41,7 +40,10 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mien_trung);
+        setContentView(R.layout.activity_danhsachdanhlamthangcanh);
+
+        Bundle b = getIntent().getExtras();
+        String VungMien = b.getString("VungMien").toString();
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
@@ -49,21 +51,21 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
-        listDLTC = new ArrayList<>();
+         listDLTC = new ArrayList<>();
 
         // Lưu listDLTC đã được gắn dữ liệu và MienBac_Activity
-        dltcAdapter = new DLTCAdapter(MienTrung_Activity.this, listDLTC);
+         dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
 
 
         // Tạo khung danh sách để hiển thị dữ liệu trong RecyclerView = linearlayout
-        rvDLTC.setLayoutManager(new LinearLayoutManager(MienTrung_Activity.this, LinearLayoutManager.VERTICAL, false));
+         rvDLTC.setLayoutManager(new LinearLayoutManager(DanhSachDanLamThangCanh_Activity.this, LinearLayoutManager.VERTICAL, false));
         // Tạo đường kẻ cách ngăn mỗi item
-        rvDLTC.addItemDecoration(new DividerItemDecoration(MienTrung_Activity.this, LinearLayout.VERTICAL));
+         rvDLTC.addItemDecoration(new DividerItemDecoration(DanhSachDanLamThangCanh_Activity.this, LinearLayout.VERTICAL));
         // Gán toàn bộ dữ liệu vào
-        rvDLTC.setAdapter(dltcAdapter);
+         rvDLTC.setAdapter(dltcAdapter);
 
         //Lấy toàn bộ dữ liệu từ collection MienBac
-        db.collection("DanhLamThangCanh").whereEqualTo("regions",FirebaseFirestore.getInstance().document("VungMien/Trung"))
+        db.collection("DanhLamThangCanh").whereEqualTo("regions",FirebaseFirestore.getInstance().document(VungMien))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -82,7 +84,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
                             String imgflag = document.get("imgflag").toString();
                             int id = Integer.parseInt(idDLTC);
                             // ----------------------Đang làm-------------------------
-                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag , imgcontent1, imgcontent2, description, city, content1, content2, regions );
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions );
                             listDLTC.add(DLTC1);
                         }
                         dltcAdapter.notifyDataSetChanged();
@@ -91,7 +93,7 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MienTrung_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DanhSachDanLamThangCanh_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -112,17 +114,18 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
             public void onClick(View view) {
                 // sắp xếp theo thứ tự tăng dần bản chữ cái
                 Collections.sort(listDLTC, comparator);
-                dltcAdapter = new DLTCAdapter(MienTrung_Activity.this, listDLTC);
+                dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
                 rvDLTC.setAdapter(dltcAdapter);
             }
         });
     }
 
+
     @Override
     public void onItemListener(DanhLamThangCanh danhLamThangCanh) {
         // Hàm này dùng để truyền dữ liệu của 1 danhlamThangCanh sang 1 activity mới
         // bằng Bundle và Intent với dữ liệu truyện theo dạng: danhLamThangCanh.name,...
-        Intent i = new Intent(MienTrung_Activity.this,ChiTietDLTC.class);
+        Intent i = new Intent(DanhSachDanLamThangCanh_Activity.this,ChiTietDLTC.class);
         Bundle b = new Bundle();
         b.putString("contentname", danhLamThangCanh.getContentname().toString());
         b.putString("content2", danhLamThangCanh.getContent2().toString());
@@ -132,4 +135,5 @@ public class MienTrung_Activity extends AppCompatActivity implements DLTCAdapter
         i.putExtras(b);
         startActivity(i);
     }
+
 }
