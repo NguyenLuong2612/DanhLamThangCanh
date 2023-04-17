@@ -30,6 +30,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
     Button btn_sort;
+    Button btn_sortZtoA;
     SearchView btn_search;
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
@@ -48,6 +49,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
         btn_sort=findViewById(R.id.btn_sort);
+        btn_sortZtoA=findViewById(R.id.btn_sortZtoA);
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
@@ -116,6 +118,20 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                 Collections.sort(listDLTC, comparator);
                 dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
                 rvDLTC.setAdapter(dltcAdapter);
+            }
+        });
+        btn_sortZtoA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(listDLTC, new Comparator<DanhLamThangCanh>() {
+                    @Override
+                    public int compare(DanhLamThangCanh danhLamThangCanh, DanhLamThangCanh t1) {
+                        return -danhLamThangCanh.getName().compareToIgnoreCase(t1.getName());
+                    }
+                });
+                dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
+                rvDLTC.setAdapter(dltcAdapter);
+                dltcAdapter.notifyDataSetChanged();
             }
         });
     }
