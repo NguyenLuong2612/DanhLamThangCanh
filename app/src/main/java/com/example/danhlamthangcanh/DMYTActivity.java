@@ -40,7 +40,7 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.danhmucyeuthich);
+        setContentView(R.layout.activity_dmytactivity);
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
