@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btn_miennam, btn_mienbac, btn_mientrung;
+    Button btn_miennam, btn_mienbac, btn_mientrung, btn_dmyt;
     BottomNavigationView mnButtom;
 
     @Override
@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setTitle("Main");
         actionBar.setDisplayHomeAsUpEnabled(true);
         mnButtom.setOnItemSelectedListener(getListener());
-
+        btn_dmyt=findViewById(R.id.btn_yeuthich);
         btn_mienbac = (Button) findViewById(R.id.btn_mienbac);
         btn_mientrung = (Button) findViewById(R.id.btn_mientrung);
         btn_miennam = (Button) findViewById(R.id.btn_miennam);
@@ -59,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putString("VungMien","VungMien/Nam");
                 i.putExtras(b);
+                startActivity(i);
+            }
+        });
+        btn_dmyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DMYTActivity.class);
                 startActivity(i);
             }
         });

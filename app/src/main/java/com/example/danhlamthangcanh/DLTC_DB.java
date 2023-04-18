@@ -15,7 +15,7 @@ public class DLTC_DB {
     private static final String COLUMN_ID = "ID";
 
     private SQLiteDatabase db;
-
+//ham tao bang
     public DLTC_DB(Context context) {
         db = context.openOrCreateDatabase("DanhLamThangCanhDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY)");

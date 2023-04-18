@@ -3,9 +3,11 @@ package com.example.danhlamthangcanh;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
     FirebaseStorage db = FirebaseStorage.getInstance();
 
 
+
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DLTCVH kế thừa từ ViewHolder
     //DLTCVH chính là controller cho view item_row
     class DLTCVH extends RecyclerView.ViewHolder{
@@ -34,10 +37,12 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
         // của mỗi item)
         CircleImageView imgFlag;
         TextView txName, txCity, txDescrition;
+        Button btn_Add;
         //Trong lớp con này sẽ thực hiện liên kết giữa controler vs view
         public DLTCVH(@NonNull View itemView) {
             super(itemView);
             imgFlag = itemView.findViewById(R.id.imgFlag);
+            btn_Add=itemView.findViewById(R.id.btn_add);
             txName = itemView.findViewById(R.id.txName);
             txCity = itemView.findViewById(R.id.txCity);
             txDescrition = itemView.findViewById(R.id.txDescription);
@@ -65,11 +70,20 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
             holder.txCity.setText("Tỉnh/Thành Phố: ".concat(item.getCity()));
             holder.txDescrition.setText(item.getDescription());
             Glide.with(holder.itemView.getContext()).load(item.getImgflag()).into(holder.imgFlag);
+            //lay id
             //Gắn interface Listener vào sự kiện onlick để xác định từng itemview được click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onItemListener(item);
+                }
+            });
+            holder.btn_Add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DLTC_DB dltc_db= new DLTC_DB(view.getContext());
+                    dltc_db.insert(item.getId());
+                    Toast.makeText(holder.itemView.getContext(), "Đã thêm item mới", Toast.LENGTH_SHORT).show();
                 }
             });
     }
