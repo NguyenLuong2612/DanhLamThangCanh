@@ -84,9 +84,10 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                             String regions = document.get("regions").toString();
                             String description = document.get("description").toString();
                             String imgflag = document.get("imgflag").toString();
+                            String video = document.get("video").toString();
                             int id = Integer.parseInt(idDLTC);
                             // ----------------------Đang làm-------------------------
-                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions );
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video );
                             listDLTC.add(DLTC1);
                         }
                         dltcAdapter.notifyDataSetChanged();
@@ -148,6 +149,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         b.putString("imgcontent1", danhLamThangCanh.getImgcontent1().toString());
         b.putString("imgcontent2", danhLamThangCanh.getImgcontent2().toString());
         b.putString("content1", danhLamThangCanh.getContent1().toString());
+        b.putString("video", danhLamThangCanh.getVideo().toString());
         i.putExtras(b);
         startActivity(i);
     }
