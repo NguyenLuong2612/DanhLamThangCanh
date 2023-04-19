@@ -22,12 +22,14 @@ public class DLTC_DB {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY)");
     }
 
+    // Thực hiện thêm id vào database
     public void insert(int id) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, id);
         db.insert(TABLE_NAME, null, values);
     }
 
+    //Xóa id trong database
     public void delete(int id) {
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
     }
@@ -36,6 +38,7 @@ public class DLTC_DB {
         db.close();
     }
 
+    //Lấy toàn bộ id trong database lưu trữ dưới kiểu ArrayList<Integer>
     public ArrayList<Integer> getAllIds() {
         ArrayList<Integer> ids = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_ID}, null, null, null, null, null);

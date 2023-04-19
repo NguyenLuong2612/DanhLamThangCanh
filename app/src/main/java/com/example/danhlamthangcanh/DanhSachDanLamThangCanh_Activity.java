@@ -55,7 +55,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         // Đang đợi gán database vào listDLTC
          listDLTC = new ArrayList<>();
 
-        // Lưu listDLTC đã được gắn dữ liệu và MienBac_Activity
+        // Lưu listDLTC đã được gắn dữ liệu vào Activity
          dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
 
 
@@ -66,7 +66,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         // Gán toàn bộ dữ liệu vào
          rvDLTC.setAdapter(dltcAdapter);
 
-        //Lấy toàn bộ dữ liệu từ collection MienBac
+        //Lấy toàn bộ dữ liệu từ collection
         db.collection("DanhLamThangCanh").whereEqualTo("regions",FirebaseFirestore.getInstance().document(VungMien))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
