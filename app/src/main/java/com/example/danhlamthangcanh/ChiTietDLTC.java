@@ -58,7 +58,7 @@ public class ChiTietDLTC extends AppCompatActivity {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = video;
-                youTubePlayer.loadVideo(videoId, 0);
+                youTubePlayer.cueVideo(videoId, 0);
             }
         });
     }

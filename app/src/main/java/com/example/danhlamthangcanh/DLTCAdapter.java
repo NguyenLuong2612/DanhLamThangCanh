@@ -39,6 +39,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
         TextView txName, txCity, txDescrition;
         Button btn_Add;
         //Trong lớp con này sẽ thực hiện liên kết giữa controler vs view
+        // Hàm tạo bắt buộc
         public DLTCVH(@NonNull View itemView) {
             super(itemView);
             imgFlag = itemView.findViewById(R.id.imgFlag);
@@ -81,9 +82,9 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
             holder.btn_Add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DLTC_DB dltc_db= new DLTC_DB(view.getContext());
+                    DLTC_DB dltc_db = new DLTC_DB(view.getContext());
                     dltc_db.insert(item.getId());
-                    Toast.makeText(holder.itemView.getContext(), "Đã thêm item mới", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(holder.itemView.getContext(), "Đã thêm vào danh sách", Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -105,6 +106,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
     @Override
     public Filter getFilter() {
         return new Filter() {
+            //Search
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String strSearch = charSequence.toString();
