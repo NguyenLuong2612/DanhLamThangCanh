@@ -32,6 +32,7 @@ public class DLTC_DB {
     //Xóa id trong database
     public void delete(int id) {
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        //phải đưa về (String) dạng chuỗi
     }
 
     public void close() {
