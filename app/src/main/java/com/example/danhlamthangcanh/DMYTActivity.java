@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Listener{
+public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Listener{
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
     Button btn_sort;
@@ -34,7 +34,7 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
     //Khởi tạo Adapter
-    DLTCAdapter dltcAdapter;
+    DMYTAdapter dmytAdapter;
     FirebaseFirestore db;
     Comparator<DanhLamThangCanh> comparator = Comparator.comparing(DanhLamThangCanh::getName);
     @Override
@@ -48,11 +48,12 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
         btn_sortZtoA=findViewById(R.id.btn_sortZtoA);
         db = FirebaseFirestore.getInstance();
 
+
         // Đang đợi gán database vào listDLTC
         listDLTC = new ArrayList<>();
 
         // Lưu listDLTC đã được gắn dữ liệu và MienBac_Activity
-        dltcAdapter = new DLTCAdapter(DMYTActivity.this, listDLTC);
+        dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
 
 
         // Tạo khung danh sách để hiển thị dữ liệu trong RecyclerView = linearlayout
@@ -60,7 +61,7 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
         // Tạo đường kẻ cách ngăn mỗi item
         rvDLTC.addItemDecoration(new DividerItemDecoration(DMYTActivity.this, LinearLayout.VERTICAL));
         // Gán toàn bộ dữ liệu vào
-        rvDLTC.setAdapter(dltcAdapter);
+        rvDLTC.setAdapter(dmytAdapter);
 
         DLTC_DB idDB = new DLTC_DB(DMYTActivity.this);
         ArrayList<Integer> ids = idDB.getAllIds();
@@ -89,7 +90,7 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
                                 DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video);
                                 listDLTC.add(DLTC1);
                             }
-                            dltcAdapter.notifyDataSetChanged();
+                            dmytAdapter.notifyDataSetChanged();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -102,13 +103,13 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
         btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                dltcAdapter.getFilter().filter(query);
+                dmytAdapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                dltcAdapter.getFilter().filter(newText);
+               dmytAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -117,8 +118,8 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
             public void onClick(View view) {
                 // sắp xếp theo thứ tự tăng dần bản chữ cái
                 Collections.sort(listDLTC, comparator);
-                dltcAdapter = new DLTCAdapter(DMYTActivity.this, listDLTC);
-                rvDLTC.setAdapter(dltcAdapter);
+                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
+                rvDLTC.setAdapter(dmytAdapter);
             }
         });
         btn_sortZtoA.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +131,12 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
                         return -danhLamThangCanh.getName().compareToIgnoreCase(t1.getName());
                     }
                 });
-                dltcAdapter = new DLTCAdapter(DMYTActivity.this, listDLTC);
-                rvDLTC.setAdapter(dltcAdapter);
-                dltcAdapter.notifyDataSetChanged();
+                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
+                rvDLTC.setAdapter(dmytAdapter);
+                dmytAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
 
@@ -153,4 +155,6 @@ public class DMYTActivity extends AppCompatActivity implements DLTCAdapter.Liste
         i.putExtras(b);
         startActivity(i);
     }
-}
+
+
+    }
