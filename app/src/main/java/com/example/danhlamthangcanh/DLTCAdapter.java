@@ -124,7 +124,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
             }
 
             @Override
-            //
+            //Cập nhật dữ liệu đã được lọc, báo cho adapter rằng dữ liệu đã thay đổi
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 listDLTC = (ArrayList<DanhLamThangCanh>) filterResults.values;
                 notifyDataSetChanged();
