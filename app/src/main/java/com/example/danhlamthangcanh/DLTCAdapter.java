@@ -25,21 +25,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // Bước 2: Muốn DLTCAdapter hoạt động thì phải kế thừa từ 1 lớp Adapter của RecyclerView có dạng:
 //RecyclerView<DLTCAdapter.DLTCVH (lớp kế thừa từ ViewHolder đã tạo ở Bước 1)>
 public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implements Filterable {
-    StorageReference linkimg;
-    FirebaseStorage db = FirebaseStorage.getInstance();
-
-
-
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DLTCVH kế thừa từ ViewHolder
-    //DLTCVH chính là controller cho view item_row
+    //DLTCVH chính là controller quản lý item_row
     class DLTCVH extends RecyclerView.ViewHolder{
         //Trong ViewHolder này sẽ chứa tất cả các view ta muốn liên kết (cụ thể là những view con
-        // của mỗi item)
+        // của item_row)
         CircleImageView imgFlag;
         TextView txName, txCity, txDescrition;
         Button btn_Add;
         //Trong lớp con này sẽ thực hiện liên kết giữa controler vs view
-        // Hàm tạo bắt buộc
         public DLTCVH(@NonNull View itemView) {
             super(itemView);
             imgFlag = itemView.findViewById(R.id.imgFlag);
@@ -108,6 +102,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
         return new Filter() {
             //Search
             @Override
+            // Thực hiện tìm kiếm, lọc
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String strSearch = charSequence.toString();
                 if(strSearch.isEmpty()){
@@ -129,6 +124,7 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
             }
 
             @Override
+            //
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 listDLTC = (ArrayList<DanhLamThangCanh>) filterResults.values;
                 notifyDataSetChanged();

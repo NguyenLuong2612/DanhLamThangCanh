@@ -24,7 +24,6 @@ public class ChiTietDLTC extends AppCompatActivity {
     TextView contentname, content1, content2;
     ImageView imgcontent1, imgcontent2;
 
-    StorageReference img1, img2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

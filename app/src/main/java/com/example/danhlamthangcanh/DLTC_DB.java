@@ -31,6 +31,9 @@ public class DLTC_DB {
 
     //Xóa id trong database
     public void delete(int id) {
+        /* Truyền vào 3 đối số:
+        Tên bảng, câu đieu
+        */
         db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         //phải đưa về (String) dạng chuỗi
     }

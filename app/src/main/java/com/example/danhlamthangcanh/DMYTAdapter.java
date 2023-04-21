@@ -22,10 +22,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 // Bước 2: Muốn DMYTAdapter hoạt động thì phải kế thừa từ 1 lớp Adapter của RecyclerView có dạng:
 //RecyclerView<DLTCAdapter.DMYTVH (lớp kế thừa từ ViewHolder đã tạo ở Bước 1)>
 public class DMYTAdapter extends RecyclerView.Adapter<DMYTAdapter.DMYTVH> implements Filterable {
-    StorageReference linkimg;
-    FirebaseStorage db = FirebaseStorage.getInstance();
-
-
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DMYTVH kế thừa từ ViewHolder
     //DMYTVH chính là controller cho view item_row
     class DMYTVH extends RecyclerView.ViewHolder{
