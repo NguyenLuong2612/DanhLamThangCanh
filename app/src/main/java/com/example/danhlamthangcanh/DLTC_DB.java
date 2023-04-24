@@ -13,44 +13,39 @@ import java.util.ArrayList;
 public class DLTC_DB {
     private static final String TABLE_NAME = "tblDanhLamThangCanh";
     private static final String COLUMN_ID = "ID";
+    private static final String COLUMN_DOCUMENT_ID = "DocumentID";
 
     private SQLiteDatabase db;
-    //ham tao bang
-    // CODE FIRST
+
     public DLTC_DB(Context context) {
         db = context.openOrCreateDatabase("DanhLamThangCanhDB", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_DOCUMENT_ID + " TEXT)");
     }
 
-    // Thực hiện thêm id vào database
-    public void insert(int id) {
+    public void insert(String documentId) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, id);
+        values.put(COLUMN_DOCUMENT_ID, documentId);
         db.insert(TABLE_NAME, null, values);
     }
 
-    //Xóa id trong database
-    public void delete(int id) {
-        /* Truyền vào 3 đối số:
-        Tên bảng, câu đieu
-        */
-        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
-        //phải đưa về (String) dạng chuỗi
+    public void delete(String documentId) {
+        db.delete(TABLE_NAME, COLUMN_DOCUMENT_ID + " = ?", new String[]{documentId});
     }
 
     public void close() {
         db.close();
     }
 
-    //Lấy toàn bộ id trong database lưu trữ dưới kiểu ArrayList<Integer>
-    public ArrayList<Integer> getAllIds() {
-        ArrayList<Integer> ids = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_ID}, null, null, null, null, null);
+    public ArrayList<String> getAllDocumentIds() {
+        ArrayList<String> documentIds = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_DOCUMENT_ID}, null, null, null, null, null);
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-            ids.add(id);
+            @SuppressLint("Range") String documentId = cursor.getString(cursor.getColumnIndex(COLUMN_DOCUMENT_ID));
+            documentIds.add(documentId);
         }
         cursor.close();
-        return ids;
+        return documentIds;
     }
 }

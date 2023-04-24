@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -64,41 +66,38 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
         rvDLTC.setAdapter(dmytAdapter);
 
         DLTC_DB idDB = new DLTC_DB(DMYTActivity.this);
-        ArrayList<Integer> ids = idDB.getAllIds();
-        for(int id : ids){
+        ArrayList<String> ids = idDB.getAllDocumentIds();
+        for(String id : ids){
             //Lấy toàn bộ dữ liệu từ collection MienBac
-            db.collection("DanhLamThangCanh").whereEqualTo("id",id)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                String city = document.get("city").toString();
-                                String idDLTC = document.get("id").toString();
-                                String name = document.get("name").toString();
-                                String content1 = document.get("content1").toString();
-                                String content2 = document.get("content2").toString();
-                                String contentname = document.get("contentname").toString();
-                                String imgcontent1 = document.get("imgcontent1").toString();
-                                String imgcontent2 = document.get("imgcontent2").toString();
-                                String regions = document.get("regions").toString();
-                                String description = document.get("description").toString();
-                                String imgflag = document.get("imgflag").toString();
-                                String video = document.get("video").toString();
-                                int id = Integer.parseInt(idDLTC);
-                                // ----------------------Đang làm-------------------------
-                                DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video);
-                                listDLTC.add(DLTC1);
-                            }
-                            dmytAdapter.notifyDataSetChanged();
+            db.collection("DanhLamThangCanh").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String city = document.getString("city");
+                            String id = document.getId();
+                            String name = document.getString("name");
+                            String content1 = document.getString("content1");
+                            String content2 = document.getString("content2");
+                            String contentname = document.getString("contentname");
+                            String imgcontent1 = document.getString("imgcontent1");
+                            String imgcontent2 = document.getString("imgcontent2");
+                            String description = document.getString("description");
+                            String imgflag = document.getString("imgflag");
+                            String video = document.getString("video");
+                            DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, video);
+                            // Xử lý dữ liệu tại đây
+                            listDLTC.add(DLTC1);
+                        } else {
+                            Log.d(String.valueOf(DMYTActivity.this), "Không tìm thấy document");
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(DMYTActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    } else {
+                        Log.d(String.valueOf(DMYTActivity.this), "Lỗi khi lấy document: ", task.getException());
+                    }
+                    dmytAdapter.notifyDataSetChanged();
+                }
+            });
         }
         btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

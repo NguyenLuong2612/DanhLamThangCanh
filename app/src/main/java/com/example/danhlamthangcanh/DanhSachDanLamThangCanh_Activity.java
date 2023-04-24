@@ -74,7 +74,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String city = document.get("city").toString();
-                            String idDLTC = document.get("id").toString();
+                            String id = document.getId();
                             String name = document.get("name").toString();
                             String content1 = document.get("content1").toString();
                             String content2 = document.get("content2").toString();
@@ -85,7 +85,6 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                             String description = document.get("description").toString();
                             String imgflag = document.get("imgflag").toString();
                             String video = document.get("video").toString();
-                            int id = Integer.parseInt(idDLTC);
                             // ----------------------Đang làm-------------------------
                             DanhLamThangCanh DLTC1 = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video );
                             listDLTC.add(DLTC1);

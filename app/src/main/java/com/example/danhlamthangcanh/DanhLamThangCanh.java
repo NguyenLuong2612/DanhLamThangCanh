@@ -1,7 +1,7 @@
 package com.example.danhlamthangcanh;
 
 public class DanhLamThangCanh {
-    int id;
+    String id;
     String name; //Tên
     String contentname;//Mệnh danh
     String imgflag;//mini img (chưa cần add)
@@ -15,20 +15,7 @@ public class DanhLamThangCanh {
     String video;// Mã video (chưa cần add)
 
 
-    public DanhLamThangCanh(int id, String name, String contentname, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions) {
-        this.id = id;
-        this.name = name;
-        this.contentname = contentname;
-        this.imgcontent1 = imgcontent1;
-        this.imgcontent2 = imgcontent2;
-        this.description = description;
-        this.city = city;
-        this.content1 = content1;
-        this.content2 = content2;
-        this.regions = regions;
-    }
-
-    public DanhLamThangCanh(int id, String name, String contentname, String imgflag, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions, String video) {
+    public DanhLamThangCanh(String id, String name, String contentname, String imgflag, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions, String video) {
         this.id = id;
         this.name = name;
         this.contentname = contentname;
@@ -43,7 +30,7 @@ public class DanhLamThangCanh {
         this.video = video;
     }
 
-    public DanhLamThangCanh(int id, String name, String contentname, String imgflag, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String regions) {
+    public DanhLamThangCanh(String id, String name, String contentname, String imgflag, String imgcontent1, String imgcontent2, String description, String city, String content1, String content2, String video) {
         this.id = id;
         this.name = name;
         this.contentname = contentname;
@@ -54,14 +41,14 @@ public class DanhLamThangCanh {
         this.city = city;
         this.content1 = content1;
         this.content2 = content2;
-        this.regions = regions;
+        this.video = video;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

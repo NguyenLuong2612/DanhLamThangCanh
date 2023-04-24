@@ -1,5 +1,6 @@
 package com.example.danhlamthangcanh;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class DMYTAdapter extends RecyclerView.Adapter<DMYTAdapter.DMYTVH> implem
     }
     //Lớp render giao diện, khởi tạo đối tượng holder thuộc lớp DLTCVH
     @Override
-    public void onBindViewHolder(@NonNull DMYTVH holder, int position) {
+    public void onBindViewHolder(@NonNull DMYTVH holder, @SuppressLint("RecyclerView") int position) {
         //Input đầu vào là 1 danh sách
         DanhLamThangCanh item = listDLTC.get(position);
         //holder truy xuất đến những thành phần liên kết trong DMYTVH của Bước 1 để hiển thị dữ liệu ra.
@@ -76,6 +77,8 @@ public class DMYTAdapter extends RecyclerView.Adapter<DMYTAdapter.DMYTVH> implem
             public void onClick(View view) {
                 DLTC_DB dltc_db = new DLTC_DB(view.getContext());
                 dltc_db.delete(item.getId());
+                listDLTC.remove(position);
+                notifyDataSetChanged();
                 Toast.makeText(holder.itemView.getContext(), "Đã xóa khỏi danh sách", Toast.LENGTH_SHORT).show();
             }
         });
