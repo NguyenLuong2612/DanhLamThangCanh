@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,8 +32,6 @@ import java.util.Comparator;
 public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Listener{
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
-    Button btn_sort;
-    Button btn_sortZtoA;
     SearchView btn_search;
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
@@ -40,14 +40,42 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
     FirebaseFirestore db;
     Comparator<DanhLamThangCanh> comparator = Comparator.comparing(DanhLamThangCanh::getName);
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sort, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnSortAtoZ:
+                Collections.sort(listDLTC, comparator);
+                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
+                rvDLTC.setAdapter(dmytAdapter);
+                dmytAdapter.notifyDataSetChanged();
+                break;
+            case R.id.mnSortZtoA:
+                Collections.sort(listDLTC, new Comparator<DanhLamThangCanh>() {
+                    @Override
+                    public int compare(DanhLamThangCanh danhLamThangCanh, DanhLamThangCanh t1) {
+                        return -danhLamThangCanh.getName().compareToIgnoreCase(t1.getName());
+                    }
+                });
+                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
+                rvDLTC.setAdapter(dmytAdapter);
+                dmytAdapter.notifyDataSetChanged();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dmytactivity);
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
-        btn_sort=findViewById(R.id.btn_sort);
-        btn_sortZtoA=findViewById(R.id.btn_sortZtoA);
         db = FirebaseFirestore.getInstance();
 
 
@@ -112,29 +140,6 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
                 return false;
             }
         });
-        btn_sort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // sắp xếp theo thứ tự tăng dần bản chữ cái
-                Collections.sort(listDLTC, comparator);
-                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
-                rvDLTC.setAdapter(dmytAdapter);
-            }
-        });
-        btn_sortZtoA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Collections.sort(listDLTC, new Comparator<DanhLamThangCanh>() {
-                    @Override
-                    public int compare(DanhLamThangCanh danhLamThangCanh, DanhLamThangCanh t1) {
-                        return -danhLamThangCanh.getName().compareToIgnoreCase(t1.getName());
-                    }
-                });
-                dmytAdapter = new DMYTAdapter(DMYTActivity.this, listDLTC);
-                rvDLTC.setAdapter(dmytAdapter);
-                dmytAdapter.notifyDataSetChanged();
-            }
-        });
 
     }
 
@@ -154,6 +159,4 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
         i.putExtras(b);
         startActivity(i);
     }
-
-
-    }
+}

@@ -21,7 +21,7 @@ public class DLTC_DB {
         db = context.openOrCreateDatabase("DanhLamThangCanhDB", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_DOCUMENT_ID + " TEXT)");
+                COLUMN_DOCUMENT_ID + " TEXT UNIQUE)");
     }
 
     public void insert(String documentId) {

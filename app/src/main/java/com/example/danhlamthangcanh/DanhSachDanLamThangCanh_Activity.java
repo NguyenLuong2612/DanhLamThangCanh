@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -38,6 +40,40 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
     DLTCAdapter dltcAdapter;
     FirebaseFirestore db;
     Comparator<DanhLamThangCanh> comparator = Comparator.comparing(DanhLamThangCanh::getName);
+
+  @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sort, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+           case R.id.mnSortAtoZ:
+                Collections.sort(listDLTC, comparator);
+                dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
+                rvDLTC.setAdapter(dltcAdapter);
+                dltcAdapter.notifyDataSetChanged();
+                break;
+          case R.id.mnSortZtoA:
+                Collections.sort(listDLTC, new Comparator<DanhLamThangCanh>() {
+                    @Override
+                    public int compare(DanhLamThangCanh danhLamThangCanh, DanhLamThangCanh t1) {
+                        return -danhLamThangCanh.getName().compareToIgnoreCase(t1.getName());
+                    }
+                });
+                dltcAdapter = new DLTCAdapter(DanhSachDanLamThangCanh_Activity.this, listDLTC);
+                rvDLTC.setAdapter(dltcAdapter);
+                dltcAdapter.notifyDataSetChanged();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +84,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
-        btn_sort=findViewById(R.id.btn_sort);
-        btn_sortZtoA=findViewById(R.id.btn_sortZtoA);
+
         db = FirebaseFirestore.getInstance();
 
         // Đang đợi gán database vào listDLTC
@@ -111,7 +146,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                 return false;
             }
         });
-        btn_sort.setOnClickListener(new View.OnClickListener() {
+       /* btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // sắp xếp theo thứ tự tăng dần bản chữ cái
@@ -133,7 +168,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                 rvDLTC.setAdapter(dltcAdapter);
                 dltcAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
 
