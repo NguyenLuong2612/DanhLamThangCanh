@@ -32,6 +32,7 @@ public class DLTC_DB {
 
     public void delete(String documentId) {
         db.delete(TABLE_NAME, COLUMN_DOCUMENT_ID + " = ?", new String[]{documentId});
+        DMYTAdapter.notifyDatasetChanged();
     }
 
     public void close() {
