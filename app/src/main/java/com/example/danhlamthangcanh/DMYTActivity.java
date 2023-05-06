@@ -41,7 +41,7 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
     Comparator<DanhLamThangCanh> comparator = Comparator.comparing(DanhLamThangCanh::getName);
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sort, menu);
+        getMenuInflater().inflate(R.menu.menutop, menu);
         return super.onCreateOptionsMenu(menu);
 
     }

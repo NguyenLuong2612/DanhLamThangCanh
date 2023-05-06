@@ -35,10 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setTitle("Main");
         actionBar.setDisplayHomeAsUpEnabled(true);
         mnButtom.setOnItemSelectedListener(getListener());
-        btn_dmyt=findViewById(R.id.btn_yeuthich);
-        btn_mienbac = (Button) findViewById(R.id.btn_mienbac);
-        btn_mientrung = (Button) findViewById(R.id.btn_mientrung);
-        btn_miennam = (Button) findViewById(R.id.btn_miennam);
         layoutHome = findViewById(R.id.layoutHome);
 
         Glide.with(this)
@@ -54,43 +50,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void onLoadCleared(@Nullable Drawable placeholder) {
                     }
                 });
-        btn_mienbac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
-                Bundle b = new Bundle();
-                b.putString("VungMien","VungMien/Bac");
-                i.putExtras(b);
-                startActivity(i);
-            }
-        });
-        btn_mientrung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
-                Bundle b = new Bundle();
-                b.putString("VungMien","VungMien/Trung");
-                i.putExtras(b);
-                startActivity(i);
-            }
-        });
-        btn_miennam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
-                Bundle b = new Bundle();
-                b.putString("VungMien","VungMien/Nam");
-                i.putExtras(b);
-                startActivity(i);
-            }
-        });
-        btn_dmyt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), DMYTActivity.class);
-                startActivity(i);
-            }
-        });
+        
     }
     void loadFragment (Fragment fmNew){
         FragmentTransaction fmTran = getSupportFragmentManager().beginTransaction();
@@ -107,20 +67,35 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fmNew;
                 switch (item.getItemId()) {
-                    case R.id.mnHome:
-                        getSupportActionBar().setTitle(item.getTitle());
+                    case R.id.mnMB:
+                      /*  getSupportActionBar().setTitle(item.getTitle());
                         fmNew = new HomeFragment();
-                        loadFragment(fmNew);
+                        loadFragment(fmNew);*/
+                        Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                        Bundle b = new Bundle();
+                        b.putString("VungMien","VungMien/Bac");
+                        i.putExtras(b);
+                        startActivity(i);
                         return true;
-                    case R.id.mnList:
-                        getSupportActionBar().setTitle(item.getTitle());
+                    case R.id.mnMT:
+                       /* getSupportActionBar().setTitle(item.getTitle());
                         fmNew = new ListFragment();
-                        loadFragment(fmNew);
+                        loadFragment(fmNew);*/
+                        Intent a = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                        Bundle c = new Bundle();
+                        c.putString("VungMien","VungMien/Trung");
+                        a.putExtras(c);
+                        startActivity(a);
                         return true;
-                    case R.id.mnSetting:
-                        getSupportActionBar().setTitle(item.getTitle());
+                    case R.id.mnMN:
+                       /* getSupportActionBar().setTitle(item.getTitle());
                         fmNew = new SettingFragment();
-                        loadFragment(fmNew);
+                        loadFragment(fmNew);*/
+                        Intent h = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
+                        Bundle d = new Bundle();
+                        d.putString("VungMien","VungMien/Nam");
+                        h.putExtras(d);
+                        startActivity(h);
                         return true;
                 }
                 return true;
