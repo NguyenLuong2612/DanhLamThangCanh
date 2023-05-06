@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -136,16 +140,17 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                dltcAdapter.getFilter().filter(query);
+                search(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                dltcAdapter.getFilter().filter(newText);
-                return false;
+                search(newText);
+                return true;
             }
         });
+
        /* btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +176,46 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         });*/
     }
 
+    public void search(String text){
+      ArrayList<DanhLamThangCanh> searchList = new ArrayList<>();
+        Query query = db.collection("DanhLamThangCanh")
+                .orderBy("name")
+                .startAt(text)
+                .endAt(text + "\uf8ff");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        String city = document.get("city").toString();
+                        String id = document.getId();
+                        String name = document.get("name").toString();
+                        String content1 = document.get("content1").toString();
+                        String content2 = document.get("content2").toString();
+                        String contentname = document.get("contentname").toString();
+                        String imgcontent1 = document.get("imgcontent1").toString();
+                        String imgcontent2 = document.get("imgcontent2").toString();
+                        String regions = document.get("regions").toString();
+                        String description = document.get("description").toString();
+                        String imgflag = document.get("imgflag").toString();
+                        String video = document.get("video").toString();
+                        // ----------------------Đang làm-------------------------
+                        DanhLamThangCanh result = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video );
+                        searchList.add(result);
+                        Log.d("TAG", "=>" + result.getName());
+                    }
+                    if (searchList.isEmpty()){
+                        return;
+                    }else {
+                        dltcAdapter.searchlist(searchList);
+                    }
+                }else{
+                    Log.d("TAG", "=>" + task.getException());
+                    Log.e(String.valueOf(DanhSachDanLamThangCanh_Activity.this), "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
 
     @Override
     public void onItemListener(DanhLamThangCanh danhLamThangCanh) {

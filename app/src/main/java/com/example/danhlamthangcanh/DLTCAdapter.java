@@ -24,7 +24,7 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 // Bước 2: Muốn DLTCAdapter hoạt động thì phải kế thừa từ 1 lớp Adapter của RecyclerView có dạng:
 //RecyclerView<DLTCAdapter.DLTCVH (lớp kế thừa từ ViewHolder đã tạo ở Bước 1)>
-public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implements Filterable {
+public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> {
     //Bước 1: RecyclerView bắt buộc tạo ra 1 class con DLTCVH kế thừa từ ViewHolder
     //DLTCVH chính là controller quản lý item_row
     class DLTCVH extends RecyclerView.ViewHolder{
@@ -97,44 +97,15 @@ public class DLTCAdapter extends RecyclerView.Adapter<DLTCAdapter.DLTCVH> implem
         this.listDLTC = listDLTC;
         this.listDLTC2 = listDLTC;
     }
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            //Search
-            @Override
-            // Thực hiện tìm kiếm, lọc
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String strSearch = charSequence.toString();
-                if(strSearch.isEmpty()){
-                    listDLTC = listDLTC2;
-                }
-                else {
-                    ArrayList<DanhLamThangCanh> list = new ArrayList<>();
-                    for (DanhLamThangCanh danhLamThangCanh : listDLTC2){
-                        if (danhLamThangCanh.getName().toLowerCase().contains(strSearch.toLowerCase())
-                        ||danhLamThangCanh.getCity().toLowerCase().contains(strSearch.toLowerCase())){
-                            list.add(danhLamThangCanh);
-                        }
-                    }
-                    listDLTC = list;
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = listDLTC;
-                return filterResults;
-            }
-
-            @Override
-            //Cập nhật dữ liệu đã được lọc, báo cho adapter rằng dữ liệu đã thay đổi
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                listDLTC = (ArrayList<DanhLamThangCanh>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
     //Khai báo 1 interface nghe event click bên trong tự định nghĩa 1 hàm truyền
     // vào đối số là 1 danhlamthangcanh. Sau đó khai báo interface này (line 73) và trong
     // contructor (line 74)
     interface Listener{
         void onItemListener(DanhLamThangCanh danhLamThangCanh);
+    }
+
+    public void searchlist(ArrayList<DanhLamThangCanh> searchList){
+        this.listDLTC = searchList;
+        notifyDataSetChanged();
     }
 }
