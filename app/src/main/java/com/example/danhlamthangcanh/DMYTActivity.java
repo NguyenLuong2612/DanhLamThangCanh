@@ -66,6 +66,10 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
                 rvDLTC.setAdapter(dmytAdapter);
                 dmytAdapter.notifyDataSetChanged();
                 break;
+            case android.R.id.home:
+                // Kết thúc activity hiện tại
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -76,6 +80,10 @@ public class DMYTActivity extends AppCompatActivity implements DMYTAdapter.Liste
 
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Mục Yêu Thích");
+
         db = FirebaseFirestore.getInstance();
 
 

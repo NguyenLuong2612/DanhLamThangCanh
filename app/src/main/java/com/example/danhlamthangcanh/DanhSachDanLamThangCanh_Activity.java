@@ -36,7 +36,6 @@ import java.util.Comparator;
 public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implements DLTCAdapter.Listener {
     //Khai báo RecyclerView
     RecyclerView rvDLTC;
-    ImageButton imgBack;
     Button btn_sort;
     Button btn_sortZtoA;
     SearchView btn_search;
@@ -77,6 +76,10 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                 Intent i = new Intent(getApplicationContext(), DMYTActivity.class);
                 startActivity(i);
                 break;
+            case android.R.id.home:
+                // Kết thúc activity hiện tại
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -86,15 +89,13 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         setContentView(R.layout.activity_danhsachdanhlamthangcanh);
         Bundle b = getIntent().getExtras();
         String VungMien = b.getString("VungMien").toString();
+        String regionname = b.getString("regionname");
         rvDLTC = findViewById(R.id.rvDLTC);
         btn_search = findViewById(R.id.btn_search);
-        imgBack=findViewById(R.id.imgBack);
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Khu vực: " + regionname);
+
         db = FirebaseFirestore.getInstance();
         // Đang đợi gán database vào listDLTC
          listDLTC = new ArrayList<>();
@@ -177,47 +178,6 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                 dltcAdapter.notifyDataSetChanged();
             }
         });*/
-    }
-
-    public void search(String text){
-      ArrayList<DanhLamThangCanh> searchList = new ArrayList<>();
-        Query query = db.collection("DanhLamThangCanh")
-                .orderBy("name")
-                .startAt(text)
-                .endAt(text + "\uf8ff");
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()){
-                        String city = document.get("city").toString();
-                        String id = document.getId();
-                        String name = document.get("name").toString();
-                        String content1 = document.get("content1").toString();
-                        String content2 = document.get("content2").toString();
-                        String contentname = document.get("contentname").toString();
-                        String imgcontent1 = document.get("imgcontent1").toString();
-                        String imgcontent2 = document.get("imgcontent2").toString();
-                        String regions = document.get("regions").toString();
-                        String description = document.get("description").toString();
-                        String imgflag = document.get("imgflag").toString();
-                        String video = document.get("video").toString();
-                        // ----------------------Đang làm-------------------------
-                        DanhLamThangCanh result = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video );
-                        searchList.add(result);
-                        Log.d("TAG", "=>" + result.getName());
-                    }
-                    if (searchList.isEmpty()){
-                        return;
-                    }else {
-                        dltcAdapter.searchlist(searchList);
-                    }
-                }else{
-                    Log.d("TAG", "=>" + task.getException());
-                    Log.e(String.valueOf(DanhSachDanLamThangCanh_Activity.this), "Error getting documents: ", task.getException());
-                }
-            }
-        });
     }
 
     public void search(String text){

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,11 +24,24 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 public class ChiTietDLTC extends AppCompatActivity {
     TextView contentname, content1, content2;
     ImageView imgcontent1, imgcontent2;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        // Xử lý nút back
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_dltc);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         contentname = findViewById(R.id.contentname);
         content1 = findViewById(R.id.content1);
@@ -36,13 +50,14 @@ public class ChiTietDLTC extends AppCompatActivity {
         imgcontent2 = findViewById(R.id.imgcontent2);
 
         Bundle b = getIntent().getExtras();
+        String name = b.getString("contentname");
         contentname.setText( b.getString("contentname"));
         content1.setText(b.getString("content1"));
         String linkimg1 = b.getString("imgcontent1").toString();
         String linkimg2 = b.getString("imgcontent2").toString();
         String video = b.getString("video").toString();
         content2.setText(b.getString("content2"));
-
+        getSupportActionBar().setTitle(name);
         // Lấy tham chiếu đến hình ảnh trong Firebase Storage
         RequestManager requestManager = Glide.with(this);
         requestManager.load(linkimg1)

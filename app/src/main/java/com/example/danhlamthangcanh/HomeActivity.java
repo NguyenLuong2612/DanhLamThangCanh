@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.transition.Transition;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeActivity extends AppCompatActivity {
     Button btn_miennam, btn_mienbac, btn_mientrung, btn_dmyt;
@@ -31,9 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mnButtom = findViewById(R.id.navMenu);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Main");
-        actionBar.setDisplayHomeAsUpEnabled(true);
         mnButtom.setOnItemSelectedListener(getListener());
         layoutHome = findViewById(R.id.layoutHome);
 
@@ -59,6 +60,21 @@ public class HomeActivity extends AppCompatActivity {
         fmTran.commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menutop, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.Favor){
+                Intent i = new Intent(getApplicationContext(), DMYTActivity.class);
+                startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @NonNull
     private NavigationBarView.OnItemSelectedListener getListener() {
         return new NavigationBarView.OnItemSelectedListener() {
@@ -74,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
                         Bundle b = new Bundle();
                         b.putString("VungMien","VungMien/Bac");
+                        b.putString("regionname","Miền Bắc");
                         i.putExtras(b);
                         startActivity(i);
                         return true;
@@ -84,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
                         Intent a = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
                         Bundle c = new Bundle();
                         c.putString("VungMien","VungMien/Trung");
+                        c.putString("regionname","Miền Trung");
                         a.putExtras(c);
                         startActivity(a);
                         return true;
@@ -94,6 +112,7 @@ public class HomeActivity extends AppCompatActivity {
                         Intent h = new Intent(getApplicationContext(), DanhSachDanLamThangCanh_Activity.class);
                         Bundle d = new Bundle();
                         d.putString("VungMien","VungMien/Nam");
+                        d.putString("regionname","Miền Nam");
                         h.putExtras(d);
                         startActivity(h);
                         return true;
