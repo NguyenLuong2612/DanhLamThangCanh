@@ -2,13 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="favor" android:id="@+id/Favor"
+    <item
+        android:id="@+id/Favor"
         android:icon="@drawable/baseline_favorite_24"
-        app:showAsAction="always"/>
-    <item android:title="settings" app:showAsAction="ifRoom" android:icon="@drawable/baseline_settings_24">
-        <menu>
-            <item android:title="Sort A-Z" android:id="@+id/mnSortAtoZ" />
-            <item android:title="Sort Z-A" android:id="@+id/mnSortZtoA" />
-        </menu>
-    </item>
+        android:title="favor"
+        app:showAsAction="always" />
+
+    <item android:title="Sort A-Z" android:id="@+id/mnSortAtoZ" />
+    <item android:title="Sort Z-A" android:id="@+id/mnSortZtoA" />
+    <item
+        android:id="@+id/switchMode"
+        android:title="Mode"
+
+        />
+
 </menu>

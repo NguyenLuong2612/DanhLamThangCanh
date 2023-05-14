@@ -137,4 +137,5 @@ public class DMYTAdapter extends RecyclerView.Adapter<DMYTAdapter.DMYTVH> implem
     interface Listener{
         void onItemListener(DanhLamThangCanh danhLamThangCanh);
     }
+
 }
