@@ -10,10 +10,5 @@
 
     <item android:title="Sort A-Z" android:id="@+id/mnSortAtoZ" />
     <item android:title="Sort Z-A" android:id="@+id/mnSortZtoA" />
-    <item
-        android:id="@+id/switchMode"
-        android:title="Mode"
-
-        />
 
 </menu>
