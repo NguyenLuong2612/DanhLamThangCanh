@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -145,13 +146,13 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         btn_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search(query);
+                searchTextSubmit(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                search(newText);
+                searchTextChange(newText);
                 return true;
             }
 
@@ -182,8 +183,8 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         });*/
     }
 
-    public void search(String text){
-      ArrayList<DanhLamThangCanh> searchList = new ArrayList<>();
+    public void searchTextChange(String text) {
+        ArrayList<DanhLamThangCanh> searchList = new ArrayList<>();
         Query query = db.collection("DanhLamThangCanh")
                 .orderBy("name")
                 .startAt(text)
@@ -191,8 +192,8 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()){
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
                         String city = document.get("city").toString();
                         String id = document.getId();
                         String name = document.get("name").toString();
@@ -206,22 +207,55 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
                         String imgflag = document.get("imgflag").toString();
                         String video = document.get("video").toString();
                         // ----------------------Đang làm-------------------------
-                        DanhLamThangCanh result = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video );
+                        DanhLamThangCanh result = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video);
                         searchList.add(result);
                         Log.d("TAG", "=>" + result.getName());
                     }
-                    if (searchList.isEmpty()){
+                    if (searchList.isEmpty()) {
                         return;
-                    }else {
+                    } else {
                         dltcAdapter.searchlist(searchList);
                     }
-                }else{
+                } else {
                     Log.d("TAG", "=>" + task.getException());
                     Log.e(String.valueOf(DanhSachDanLamThangCanh_Activity.this), "Error getting documents: ", task.getException());
                 }
             }
         });
     }
+        public void searchTextSubmit(String text){
+            ArrayList<DanhLamThangCanh> searchsubmit = new ArrayList<>();
+            db.collection("DanhLamThangCanh").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for(DocumentSnapshot document : task.getResult()){
+                        String name = document.get("name").toString();
+                        if(name.toLowerCase().trim().contains(text.toLowerCase().trim())) {
+                            String content1 = document.get("content1").toString();
+                            String content2 = document.get("content2").toString();
+                            String contentname = document.get("contentname").toString();
+                            String imgcontent1 = document.get("imgcontent1").toString();
+                            String imgcontent2 = document.get("imgcontent2").toString();
+                            String regions = document.get("regions").toString();
+                            String description = document.get("description").toString();
+                            String imgflag = document.get("imgflag").toString();
+                            String video = document.get("video").toString();
+                            String city = document.get("city").toString();
+                            String id = document.getId();
+                            DanhLamThangCanh result = new DanhLamThangCanh(id, name, contentname, imgflag, imgcontent1, imgcontent2, description, city, content1, content2, regions, video);
+                            searchsubmit.add(result);
+                            Log.d("TAG", "=>" + result.getName());
+                        }
+                    }
+                    if (searchsubmit.isEmpty()){
+                        return;
+                    }else {
+                        dltcAdapter.searchlist(searchsubmit);
+                    }
+                }
+            });
+    }
+
 
     @Override
     public void onItemListener(DanhLamThangCanh danhLamThangCanh) {
