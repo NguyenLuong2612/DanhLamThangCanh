@@ -14,7 +14,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.DanhLamThangCanh"
+        android:name=".MyApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".Setting"
+            android:exported="false" />
         <activity
             android:name=".DMYTActivity"
             android:exported="false" />

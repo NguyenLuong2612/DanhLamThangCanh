@@ -68,9 +68,15 @@ public class HomeActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.Favor){
+        switch (item.getItemId()){
+            case R.id.Favor:
                 Intent i = new Intent(getApplicationContext(), DMYTActivity.class);
                 startActivity(i);
+                break;
+            case R.id.Setting:
+                Intent a = new Intent(getApplicationContext(), Setting.class);
+                startActivity(a);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
