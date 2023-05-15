@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
     RecyclerView rvDLTC;
     Button btn_sort;
     Button btn_sortZtoA;
+    Switch mode_switch;
     SearchView btn_search;
     //Khởi tạo 1 danh sách
     ArrayList<DanhLamThangCanh> listDLTC;
@@ -236,5 +238,7 @@ public class DanhSachDanLamThangCanh_Activity extends AppCompatActivity implemen
         i.putExtras(b);
         startActivity(i);
     }
+
+
 
 }
