@@ -33,7 +33,6 @@ public class Setting extends AppCompatActivity {
                 nightMODE = switcher.isChecked();
                 if (nightMODE){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor = sharedPreferences.edit();
                 }else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
